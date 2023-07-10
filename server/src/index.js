@@ -1,6 +1,7 @@
 import express from "express"
 import "./db/mongoose.js"
 import User from "./models/user.js"
+import Task from "./models/task.js"
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -12,6 +13,14 @@ app.post("/users", (req, res) => {
 
     user.save()
         .then(() => res.send(user))
+        .catch(error => res.status(400).send(error))
+})
+
+app.post("/tasks", (req, res) => {
+    const task = new Task(req.body)
+
+    task.save()
+        .then(() => res.send(task))
         .catch(error => res.status(400).send(error))
 })
 
