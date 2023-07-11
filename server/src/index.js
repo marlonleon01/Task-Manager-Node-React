@@ -46,6 +46,21 @@ app.get("/users/:id", async (req, res) => {
     }
 })
 
+app.patch("/users/:id", async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const user = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
+
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
 
 //Tasks Endpoints
 app.post("/tasks", async (req, res) => {
