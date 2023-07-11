@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/user.js"
 
-const router = new express.Router
+const userRouter = new express.Router()
 
 router.post("/users", async (req, res) => {
     const user = new User(req.body)
@@ -76,4 +76,4 @@ router.delete("/users/:id", async (req, res) => {
 })
 
 
-export default router
+export default userRouter
