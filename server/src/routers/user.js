@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/user.js"
+import jwt from "jsonwebtoken"
 
 const userRouter = new express.Router()
 
@@ -7,6 +8,9 @@ userRouter.post("/users", async (req, res) => {
     const user = new User(req.body)
 
     try {
+        const token = jwt.sign({_id: user._id.toString()}, "thismynewcourse")
+        user.tokens = user.tokens.concat({token})
+
         await user.save()
         res.status(201).send(user)
     } catch (error) {
@@ -17,8 +21,9 @@ userRouter.post("/users", async (req, res) => {
 userRouter.post("/users/login", async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
+        const token = await user.generateAuthToken()
 
-        res.send(user)
+        res.send({user, token})
     } catch (error) {
         res.status(400).send()
     }
