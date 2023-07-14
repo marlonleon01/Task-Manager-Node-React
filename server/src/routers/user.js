@@ -1,6 +1,5 @@
 import express from "express";
 import User from "../models/user.js"
-import jwt from "jsonwebtoken"
 import auth from "../middlewares/auth.js";
 
 const userRouter = new express.Router()
@@ -9,11 +8,9 @@ userRouter.post("/users", async (req, res) => {
     const user = new User(req.body)
 
     try {
-        const token = jwt.sign({_id: user._id.toString()}, "thismynewcourse")
-        user.tokens = user.tokens.concat({token})
-
         await user.save()
-        res.status(201).send(user)
+        const token = await user.generateAuthToken()
+        res.status(201).send({user, token})
     } catch (error) {
         res.status(400).send(error)
     }
