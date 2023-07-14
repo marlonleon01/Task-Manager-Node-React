@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/user.js"
 import jwt from "jsonwebtoken"
+import auth from "../middlewares/auth.js";
 
 const userRouter = new express.Router()
 
@@ -29,13 +30,8 @@ userRouter.post("/users/login", async (req, res) => {
     }
 })
 
-userRouter.get("/users", async (req, res) => {
-    try {
-        const users = await User.find({})
-        res.send(users) 
-    } catch (error) {
-        res.status(500).send()
-    }
+userRouter.get("/users/me", auth, async (req, res) => {
+    res.send(req.user)
 })
 
 userRouter.get("/users/:id", async (req, res) => {
