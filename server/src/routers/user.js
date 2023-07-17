@@ -1,7 +1,6 @@
 import express from "express";
 import User from "../models/user.js"
 import auth from "../middlewares/auth.js";
-
 const userRouter = new express.Router()
 
 userRouter.post("/users", async (req, res) => {
@@ -20,7 +19,6 @@ userRouter.post("/users/login", async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-
         res.send({user, token})
     } catch (error) {
         res.status(400).send()
