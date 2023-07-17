@@ -25,18 +25,14 @@ taskRouter.get("/tasks", auth, async (req, res) => {
     }
 
     try {
-        await req.user.populate({
-            path: "tasks",
-            match,
-            options: {
-                limit: parseInt(req.query.limit),
-                skip: parseInt(req.query.skip)
-            }
-        })
-
-        res.send(req.user.tasks)
+        const tasks = await Task.find(
+            {owner: req.user._id}, 
+            null, 
+            {limit: req.query.limit, skip: req.query.skip}
+        )
+        
+        res.send(tasks)
     } catch (error) {
-        console.log(error)
         res.status(500).send()
     }
 })
