@@ -26,7 +26,7 @@ taskRouter.get("/tasks", auth, async (req, res) => {
 
     try {
         const tasks = await Task.find(
-            {owner: req.user._id}, 
+            {owner: req.user._id, ...match}, 
             null, 
             {limit: req.query.limit, skip: req.query.skip}
         )
