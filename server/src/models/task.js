@@ -12,12 +12,13 @@ const taskSchema = mongoose.Schema({
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: "User"
     }
 },{
     timestamps: true
 })
 
-const Task = mongoose.model("tasks", taskSchema)
+const Task = mongoose.model("Task", taskSchema)
 
 export default Task
