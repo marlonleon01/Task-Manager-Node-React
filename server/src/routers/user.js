@@ -1,7 +1,9 @@
 import express from "express";
 import User from "../models/user.js"
 import auth from "../middlewares/auth.js";
+import multer from "multer"
 const userRouter = new express.Router()
+const upload = multer({dest: "avatar"})
 
 userRouter.post("/users", async (req, res) => {
     const user = new User(req.body)
@@ -79,5 +81,8 @@ userRouter.delete("/users/me", auth, async (req, res) => {
     }
 })
 
+userRouter.post("/users/me/avatar", upload.single("avatar"),(req, res) => {
+    res.send()
+})
 
 export default userRouter
