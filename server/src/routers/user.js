@@ -94,10 +94,6 @@ const upload = multer({
     }
 })
 
-const errorMiddleware = (req, res, next) => {
-    throw new Error("From my middleware")
-}
-
 userRouter.post("/users/me/avatar", upload.single("avatar"),(req, res) => {
     res.send()
 }, (error, req, res, next) => {
