@@ -3,7 +3,6 @@ import User from "../models/user.js"
 import auth from "../middlewares/auth.js";
 import multer from "multer"
 const userRouter = new express.Router()
-const upload = multer({dest: "avatar"})
 
 userRouter.post("/users", async (req, res) => {
     const user = new User(req.body)
@@ -78,6 +77,20 @@ userRouter.delete("/users/me", auth, async (req, res) => {
         res.send(req.user)
     } catch (error) {
         res.status(500).send()
+    }
+})
+
+
+const upload = multer({
+    dest: "avatar",
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error("Upload jpg, jpeg, or png file!"))
+        }
+        cb(null, true)
     }
 })
 
