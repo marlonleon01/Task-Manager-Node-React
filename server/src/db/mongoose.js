@@ -1,3 +1,3 @@
 import mongoose from "mongoose";
 
-mongoose.connect(MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URL)
