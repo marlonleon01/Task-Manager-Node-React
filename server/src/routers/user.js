@@ -3,6 +3,7 @@ import User from "../models/user.js"
 import auth from "../middlewares/auth.js";
 import multer from "multer"
 import sharp from "sharp"
+import { sendWelcomeEmail } from "../emails/account.js";
 const userRouter = new express.Router()
 
 userRouter.post("/users", async (req, res) => {
@@ -10,6 +11,7 @@ userRouter.post("/users", async (req, res) => {
 
     try {
         await user.save()
+        sendWelcomeEmail(user.email, user.name)
         const token = await user.generateAuthToken()
         res.status(201).send({user, token})
     } catch (error) {
