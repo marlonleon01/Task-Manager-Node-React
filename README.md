@@ -1,6 +1,6 @@
 # Task-Manager-Node-React
 
-## Still missing the front end with react will build it as soon as I finish writing test cases and create the chat app   
+## Still missing the front end with react will build it as soon as I finish writing test cases and create the chat app
 
 ## Description
 -I created this to practice working with node, express, MongoDB, mongoose, and many npm packages
