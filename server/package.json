@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
+    "test": "env-cmd -f ./config/test.env node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
