@@ -29,6 +29,7 @@
   "type": "module",
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "jest": "^29.6.1"
+    "jest": "^29.6.1",
+    "supertest": "^6.3.3"
   }
 }
